@@ -28,17 +28,19 @@
 \end{figure}
 При подключении вольтметра с сопротивлением $R_v$ к батарее, имеющей ЭДС $\mathcal{E}$ и внутреннее сопротивление $r$ (\Cref{fig:1}), показания вольтметра:
 \begin{align} \label{eq:4}
-	U = I R_v = \frac{\mathcal{E} R_v}{R_v + r}.
+	U = I R_v = \frac{\Epsilon R_v}{R_v + r}.
 \end{align}
 
 Показания вольтметра отличаются от значения $\mathcal{E}$ на величину
-\[
-\mathcal{E} - U = I r = \frac{\mathcal{E} r}{R_v + r}.
-\]
+\begin{align}
+	\mathcal{E} - U = I r = \frac{\mathcal{E} r}{R_v + r}.
+\end{align}
+
+
 
 При $R_v \gg r$ относительная ошибка измерения ЭДС становится малой:
 \begin{align} \label{eq:6}
-	\delta\mathcal{E} \approx \frac{r}{R_v}.
+	\delta\mathcal{E} = \frac{\Epsilon - U}{\Epsilon} = \frac{\Epsilon r}{\Epsilon (R_v + r)} \approx \frac{r}{R_v}.
 \end{align}
 
 Для высокоомных вольтметров эта ошибка может быть незначительной, но для невысокоомных вольтметров измерение дает заметную погрешность. Более точное измерение обеспечивает метод компенсации.
@@ -57,12 +59,34 @@
 \begin{align} \label{eq:7}
 	R_1 + R_2 = R = \text{const},
 \end{align}
-до достижения нулевого тока через нуль-гальванометр. Ток через гальванометр:
+до достижения нулевого тока через нуль-гальванометр. 
+
+Для получения тока через гальванометр, рассмотрим \cref{fig:2} и расставим направления течения тока и обхода. Запишем первый и второй законы Кирхгофа:
+\begin{align} \label{eq:1.1}
+	\begin{cases}
+		I_3 = I_1 + I_2\\
+		-\Epsilon_x = I_3 r + I_2 R_1\\
+		\Epsilon = I_1 R_2 - I_2 R_1
+	\end{cases}
+\end{align}
+
+Выведем силу тока на промежутке с нуль гальванометре ($I_3$):
+\begin{align}\label{eq:1.2}
+	\begin{cases}
+		I_3 = I_1 + I_2\\
+		I_2 = \dfrac{\Epsilon_x}{R_1} - I_3 \dfrac{r}{R_1}\\
+		I_1 = I_2 \dfrac{R_1}{R_2} - \dfrac{\Epsilon}{R_2} = \left(\dfrac{\Epsilon_x}{R_1} - I_3 \dfrac{r}{R_1}\right) \dfrac{R_1}{R_2} - \dfrac{\Epsilon}{R_2} = \dfrac{\Epsilon_x - \Epsilon}{R_2} - I_3 \dfrac{r}{R_2}
+	\end{cases}
+\end{align}
+\[I_3 = \dfrac{\Epsilon_x - \Epsilon}{R_2} - I_3 \dfrac{r}{R_2} + \dfrac{\Epsilon_x}{R_1} - I_3 \dfrac{r}{R_1}\]
+\[I_3 \left(1 + \dfrac{r}{R_2} + \dfrac{r}{R_1}\right) = \dfrac{\Epsilon_x - \Epsilon}{R_2} + \dfrac{\Epsilon_x}{R_1}\]
+\[I_3 \dfrac{r R + R_1 R_2}{R_1 R_2} = \dfrac{R_1 \Epsilon - R \Epsilon_x}{R_1 R_2}\]
 \begin{align} \label{eq:8}
 	I_3 = \frac{\mathcal{E} R_1 - \mathcal{E}_x R}{rR + R_1 R_2}.
 \end{align}
 
 При компенсации ($I_3 = 0$) неизвестная ЭДС:
+\[0 = \mathcal{E} R_{1x} - \mathcal{E}_x R\]
 \begin{align} \label{eq:9}
 	\mathcal{E}_x = \frac{R_{1x}}{R} \mathcal{E},
 \end{align}
