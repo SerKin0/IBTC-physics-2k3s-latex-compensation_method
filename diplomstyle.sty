@@ -1,0 +1,340 @@
+\NeedsTeXFormat{LaTeX2e}
+\ProvidesPackage{diplomstyle}[2025/06/22 Пакет с настройками для дипломной работы]
+
+% ======================= ПОДКЛЮЧЕНИЕ ПАКЕТОВ ==============================
+%% Библиография
+%\RequirePackage[backend=biber,style=gost-numeric,sorting=nty]{biblatex}
+\bibliographystyle{BibTex/gost-alphabetic.bbx}
+\RequirePackage[parentracker=true,
+backend=biber,
+hyperref=false,
+bibencoding=utf8,
+style=numeric-comp,
+language=auto,
+autolang=other,
+citestyle=gost-numeric,
+defernumbers=true,
+bibstyle=gost-numeric,
+sorting=ntvy,
+]{biblatex}
+
+%% Настройки страниц
+\RequirePackage{geometry} % Настройки полей и страницы
+
+%% Программирование
+\RequirePackage{listings}
+
+%% Настройки текста/языка
+\RequirePackage{extsizes}
+\RequirePackage{iftex} % Добавляем пакет для проверки движка
+
+% Разные настройки для pdflatex и xelatex
+\RequirePackage[T2A]{fontenc}
+\RequirePackage[utf8]{inputenc}
+\RequirePackage[english,russian]{babel}
+\RequirePackage{cmap}
+% \RequirePackage{tempora}
+
+\RequirePackage{indentfirst} % Красная строка
+\RequirePackage{setspace} % Межстрочный интервал
+\RequirePackage{ulem} % Подчеркивания
+\RequirePackage{enumitem}
+% \RequirePackage{titlesec} % Настройка заголовков (section, subsection,...)
+% \RequirePackage{tocloft} % Содержание
+\RequirePackage{fancyhdr} % Колонтитулы
+\RequirePackage{abraces} % Фигурные скобки
+\RequirePackage{multicol} % Колонки
+\RequirePackage{multirow}    % Для объединения строк (\multirow)
+
+%% Объекты
+\RequirePackage{graphicx,placeins} % Фотографии
+\RequirePackage{wrapfig}
+\RequirePackage{float}    % Для позиционирования объектов
+\RequirePackage[tableposition=top]{caption} % Для настройки подписей
+\RequirePackage{subcaption}  % Пакет для создания подписей к подрисункам
+\RequirePackage{tabularx, tabulary}
+\RequirePackage{tikz}
+\RequirePackage{tcolorbox} % Стильные боксы
+
+%% Математика
+\RequirePackage{amsmath, amssymb, amsfonts, mathtools} % Пакеты для математики AMS
+\RequirePackage{icomma} % "Умная" запятая: $0,2$ --- число, $0, 2$ --- перечисление
+
+%% Ссылки
+\RequirePackage{cmap} % Для более качественного поиска по pdf и т.п.
+\RequirePackage{xurl} % Позволяет переносить URL где угодно
+\RequirePackage[colorlinks,breaklinks]{hyperref} % Ссылки внутри документа
+\RequirePackage[russian,capitalize]{cleveref} % Удобные сноски на элементы
+
+%% Разное
+\RequirePackage[table]{xcolor}
+
+
+% ======================== НАСТРОЙКИ ПАКЕТОВ ===============================
+% Настройка РАЗМЕРОВ geometry
+\geometry{
+	a4paper,
+	left=3cm,
+	right=1.5cm,
+	top=2cm,
+	bottom=2cm
+}
+
+%% Настройка ССЫЛОК
+\hypersetup{
+	colorlinks=true,  % Включает цветные ссылки (false — рамки вокруг текста)
+	linkcolor=black,  % Цвет ссылок в оглавлении (на разделы)
+	urlcolor=black,   % Цвет URL-адресов
+	citecolor=black,  % Цвет ссылок на библиографию
+}
+
+%% Установка шрифта документа
+% Абзацные ОТСТУПЫ и ИНТЕРВАЛЫ
+\setlength{\parindent}{1.5em} % Абзацный отступ
+\setlength{\parskip}{0.em} % Интервал между абзацами
+%\linespread{1.3} % 1.5 межстрочный интервал
+
+% Настройки описания у ФОТОГРАФИЙ
+\captionsetup[figure]{
+	labelsep=period, % Точка после "Рис. X"
+	name={Рис.},     % Заменяем "Figure" на "Рис."
+	justification=centering % Выравнивание по центру
+}
+
+% Настройки изображений
+% \graphicspath{{./image/}} % Директория папки с фотографиями
+
+
+% Настройки описания у ТАБЛИЦ
+\renewcommand{\tablename}{Таблиц}
+\renewcommand{\thetable}{\arabic{table}}
+\makeatletter
+\def\t@caption{\refstepcounter{table}\raggedleft Табли~\thetable.\newline Привет }
+\makeatother
+
+% Настройки для CLEVEREF
+\crefname{figure}{рис.}{рис.} % Для рисунков
+\Crefname{figure}{Рис.}{Рис.}
+
+\crefname{table}{табл.}{табл.} % Для таблиц
+\Crefname{table}{Табл.}{Табл.} % Для таблиц
+
+\crefname{appsection}{прил.}{прил.} % Для приложений
+\Crefname{appsection}{Прил.}{Прил.} % Для приложений
+
+\crefname{listing}{лист.}{лист.} % Для листингов
+\Crefname{listing}{Лист.}{Лист.} % Для листингов
+
+\crefname{equation}{}{(} % Убираем "Уравнение" и добавляем "("
+\crefformat{equation}{(#2#1#3)} % Одиночная ссылка: (1)
+\crefrangelabelformat{equation}{(#3#1#4--#5#2#6)} % Диапазон: (4--7)
+\crefmultiformat{equation}{(#2#1#3)}{ и~(#2#1#3)}{, (#2#1#3)}{ и~(#2#1#3)} % Список: (1), (2) и (3)
+
+
+
+%% ПРОГРАММИРОВАНИЕ (listings)
+% Определение тёмно-зелёного цвета (можно настроить оттенок)
+\definecolor{darkgreen}{rgb}{0.0, 0.6, 0.0}
+\definecolor{pycharm-keyword}{RGB}{200, 0, 110}      % Ключевые слова
+\definecolor{pycharm-string}{RGB}{42, 0, 255}       % Строки
+\definecolor{pycharm-comment}{RGB}{128, 128, 128}   % Комментарии
+\definecolor{pycharm-number}{RGB}{0, 0, 255}        % Числа
+\definecolor{pycharm-background}{RGB}{255, 255, 255}% Фон
+\definecolor{pycharm-frame}{RGB}{214, 214, 214}     % Рамка
+\definecolor{pycharm-identifier}{RGB}{0, 0, 0}      % Идентификаторы
+
+\lstset{
+    showtabs = false,
+    basicstyle = \small\ttfamily,
+    breaklines = true,
+    breakatwhitespace = false,
+    prebreak = \mbox{\textcolor{red}{$\hookleftarrow$}},
+    postbreak = \mbox{\textcolor{red}{$\hookrightarrow$}},
+    breakindent = 5pt,
+    breakautoindent = true,
+    numbers = left,
+    numberstyle = \footnotesize\color{gray},
+    numbersep = 5pt,
+    stepnumber = 1,
+    firstnumber = 1,
+    frame = single,
+    xleftmargin = 3pt,
+    xrightmargin = 3pt,
+    rulecolor = \color{lightgray},
+    backgroundcolor = \color{white},
+    keywordstyle = \color{blue}\bfseries,
+    commentstyle = \color{darkgreen}\itshape,
+    stringstyle = \color{red},
+    morecomment = [s][\color{purple}]{/**}{*/},
+    morecomment = [s][commentstyle]{/*}{*/},
+    morecomment = [l][commentstyle]{//},
+    columns = fullflexible,
+    showstringspaces = false, % Подчеркивание пробелов в строках
+    keepspaces = true,
+    tabsize = 4,
+    captionpos = top,
+    inputencoding = utf8x,
+    extendedchars = true,
+    literate =
+    {а}{{\cyra}}1 {б}{{\cyrb}}1 {в}{{\cyrv}}1 {г}{{\cyrg}}1 {д}{{\cyrd}}1
+    {е}{{\cyre}}1 {ё}{{\cyryo}}1 {ж}{{\cyrzh}}1 {з}{{\cyrz}}1 {и}{{\cyri}}1
+    {й}{{\cyrishrt}}1 {к}{{\cyrk}}1 {л}{{\cyrl}}1 {м}{{\cyrm}}1 {н}{{\cyrn}}1
+    {о}{{\cyro}}1 {п}{{\cyrp}}1 {р}{{\cyrr}}1 {с}{{\cyrs}}1 {т}{{\cyrt}}1
+    {у}{{\cyru}}1 {ф}{{\cyrf}}1 {х}{{\cyrh}}1 {ц}{{\cyrc}}1 {ч}{{\cyrch}}1
+    {ш}{{\cyrsh}}1 {щ}{{\cyrshch}}1 {ъ}{{\cyrhrdsn}}1 {ы}{{\cyrery}}1
+    {ь}{{\cyrsftsn}}1 {э}{{\cyrerev}}1 {ю}{{\cyryu}}1 {я}{{\cyrya}}1
+    {А}{{\CYRA}}1 {Б}{{\CYRB}}1 {В}{{\CYRV}}1 {Г}{{\CYRG}}1 {Д}{{\CYRD}}1
+    {Е}{{\CYRE}}1 {Ё}{{\CYRYO}}1 {Ж}{{\CYRZH}}1 {З}{{\CYRZ}}1 {И}{{\CYRI}}1
+    {Й}{{\CYRISHRT}}1 {К}{{\CYRK}}1 {Л}{{\CYRL}}1 {М}{{\CYRM}}1 {Н}{{\CYRN}}1
+    {О}{{\CYRO}}1 {П}{{\CYRP}}1 {Р}{{\CYRR}}1 {С}{{\CYRS}}1 {Т}{{\CYRT}}1
+    {У}{{\CYRU}}1 {Ф}{{\CYRF}}1 {Х}{{\CYRH}}1 {Ц}{{\CYRC}}1 {Ч}{{\CYRCH}}1
+    {Ш}{{\CYRSH}}1 {Щ}{{\CYRSHCH}}1 {Ъ}{{\CYRHRDSN}}1 {Ы}{{\CYRERY}}1
+    {Ь}{{\CYRSFTSN}}1 {Э}{{\CYREREV}}1 {Ю}{{\CYRYU}}1 {Я}{{\CYRYA}}1
+    {-}{{-}}1
+}
+\DeclareCaptionFormat{listing}{\centering~#1 --- #3}
+\captionsetup[lstlisting]{format=listing, singlelinecheck=off}
+
+
+%% Настройка ЗАГОЛОВКОВ
+\makeatletter
+% Настройка \section
+\renewcommand{\section}{\@startsection{section}{1}{\z@}%
+    {-3.5ex \@plus -1ex \@minus -.2ex}% отступ перед заголовком
+    {2.3ex \@plus.2ex}% отступ после заголовка
+    {\Large\bfseries\centering\MakeUppercase}}
+\renewcommand{\thesection}{\Roman{section}.}
+
+% Настройка \subsection
+\renewcommand{\subsection}{\@startsection{subsection}{2}{\z@}%
+    {-3.25ex \@plus -1ex \@minus -.2ex}%
+    {1.5ex \@plus .2ex}%
+    {\large\bfseries}}
+\renewcommand{\thesubsection}{\arabic{subsection}.}
+
+% Настройка \subsubsection
+\renewcommand{\subsubsection}{\@startsection{subsubsection}{3}{\z@}%
+    {-3.25ex \@plus -1ex \@minus -.2ex}%
+    {1.5ex \@plus .2ex}%
+    {\normalsize\bfseries}}
+\renewcommand{\thesubsubsection}{\arabic{subsection}.\arabic{subsubsection}}
+\makeatother
+
+% Заголовок для Приложения(appendix)
+% Создаём новый счётчик для приложений
+\newcounter{appsection}
+\renewcommand{\theappsection}{\arabic{appsection}}
+
+% Команда для заголовка приложения
+\newcommand{\appendixsection}[1]{
+	\refstepcounter{appsection}
+	\vspace{1em}
+	\noindent{\largeПриложение \theappsection. #1}
+	\par\nopagebreak
+	\addcontentsline{toc}{subsection}{Приложение \theappsection. #1}  % Добавляем в оглавление
+	\label{app:#1}  % Автоматическая метка (можно заменить на ручные \label)
+}
+
+%% Настройка отступов ПЕРЕЧИСЛЕНИЙ
+\renewcommand{\thesubfigure}{\asbuk{subfigure}} % Для кириллических букв
+
+\setlist[enumerate,2]{label=\asbuk*)} % Устанавливает формат для второго уровня
+\renewcommand\labelitemi{{\small$\bullet$}} % Установка размера точки в itemize
+
+\makeatletter
+\AddEnumerateCounter{\asbuk}{\russian@alph}{щ}
+\makeatother
+
+%% Настройки ЛИТЕРАТУРЫ biblatex
+% \addbibresource{BibTeX/references.bib}
+% Убрано из пакета, так как путь может отличаться в разных документах
+
+%% Настройка СОДЕРЖАНИЯ
+% Название оглавления
+\renewcommand{\contentsname}{Оглавление}
+
+\usepackage{titletoc}
+
+% Настройка стиля пунктов в содержании
+\makeatletter
+\renewcommand*\l@section{\@dottedtocline{1}{1.5em}{3em}} % разделы
+\renewcommand*\l@subsection{\@dottedtocline{2}{3.8em}{3.2em}} % подразделы
+\renewcommand*\l@subsubsection{\@dottedtocline{3}{7.0em}{4.1em}} % подпункты
+\makeatother
+
+% Чтобы заголовок был по центру и без отступа
+\usepackage{tocloft}
+\renewcommand{\cfttoctitlefont}{\hfill\normalsize\bfseries}
+\renewcommand{\cftaftertoctitle}{\hfill}
+
+% Увеличить расстояние между строками в содержании
+\renewcommand{\cftbeforesecskip}{0.5em} % интервал между разделами
+
+%% Переносы текста
+\sloppy % Старается впихнуть в строку текст, ссылки и т.п.
+
+% МАТЕМАТИКА
+%% Перенос знаков в формулах (по Львовскому)
+\newcommand*{\hm}[1]{#1\nobreak\discretionary{}
+{\hbox{$\mathsurround=0pt #1$}}{}}
+% Настройка отступов вокруг формул в выключном стиле (displaymath)
+\abovedisplayskip = 0.5em % Отступ сверху для обычных формул
+\belowdisplayskip = 0.5em % Отступ снизу для обычных формул
+\abovedisplayshortskip = 0em % Отступ сверху, если строка перед формулой короткая
+\belowdisplayshortskip= 0em % Отступ снизу, если строка после формулы короткая
+
+\setlist[enumerate]{
+    noitemsep,      % Убирает лишние отступы между пунктами
+    topsep=0.2em,     % Отступ сверху списка
+    parsep=0pt,     % Отступ между абзацами внутри пункта
+    partopsep=0pt,   % Доп. отступ, если список начинается после пустой строки
+    itemsep=0.2em,     % Расстояние между пунктами (можно задать вручную, например, 1pt)
+}
+
+\setlist[itemize]{
+	noitemsep,      % Убирает лишние отступы между пунктами
+	topsep=0.2em,     % Отступ сверху списка
+	parsep=0pt,     % Отступ между абзацами внутри пункта
+	partopsep=0pt,   % Доп. отступ, если список начинается после пустой строки
+	itemsep=0.2em,     % Расстояние между пунктами (можно задать вручную, например, 1pt)
+}
+
+\tcbuselibrary{skins, breakable}  % <-- Добавьте эту строку!
+
+% Блоки определений
+\newtcolorbox{tbox}[2][]{
+	colback=white!98!black,
+	colframe=white!80!black,
+	fonttitle=\bfseries,
+	coltitle=black,
+	title={#2},
+	breakable,       % Оставляем, если нужны разрывы
+	standard,        % Вместо enhanced → быстрее
+	before={\addcontentsline{toc}{subsubsection}{#2}}
+}
+
+
+\newtcolorbox{librarybox}{
+	enhanced,
+	colback=gray!10, % светло-серый фон
+	boxrule=0pt, % убираем рамку
+	arc=0pt, % убираем скругление углов
+	outer arc=0pt,
+	left=6pt, % отступ текста от линий
+	right=4pt,
+	top=4pt,
+	bottom=4pt,
+	before skip=12pt, % отступ перед box
+	after skip=12pt, % отступ после box
+	overlay={
+		% Первая линия (толстая серая)
+		\draw[gray!50, line width=4pt]
+		(frame.south west) -- (frame.north west);
+		% Вторая линия (тонкая темная)
+		\draw[gray!50, line width=1pt]
+		([xshift=4pt]frame.south west) -- ([xshift=4pt]frame.north west);
+	}
+}
+
+\frenchspacing
+\endinput
