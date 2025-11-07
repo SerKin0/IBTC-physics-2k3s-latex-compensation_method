@@ -62,7 +62,7 @@ R_{1N} = \frac{R_1^+ + R_1^-}{2}
 \[
 R = 11111\ \text{Ом},\quad \Delta R = \pm (0{,}1 + 0{,}2 \frac{m}{R}) \cdot \frac{11111}{100}\ \text{Ом}
 \]
-где $m$ -- число декад магазина, показания которых не равны 0; $R$ -- значение включенного сопротивления в Омах. 
+где $m$ -- чисто декад магазина, показания которых не равны 0; $R$ -- значение включенного сопротивления в Омах. 
 \[
 R_{1N_{3\ \text{В}}} = (3781{,}9 \pm 11{,}1)\ \text{Ом},\quad R_{1N_{6\ \text{В}}} = (1888{,}0 \pm 11{,}1)\ \text{Ом}
 \]
@@ -106,7 +106,7 @@ R_{1x_{3\ \text{В}}} = (5425{,}0 \pm 11{,}1)\ \text{Ом},\quad R_{1x_{6\ \text
 
 Погрешность $\Epsilon_x$:
 \[
-\Delta \Epsilon_x = \frac{\partial \Epsilon_x}{\partial I_3}  \Delta I + \frac{\partial \Epsilon_x}{\partial R_1} \Delta R_1 + \frac{\partial \Epsilon_x}{\partial R_2} \Delta R_2 + \frac{\partial \Epsilon_x}{\partial \Epsilon} \Delta \Epsilon
+\Delta \Epsilon_x = \left| \frac{\partial \Epsilon_x}{\partial I_3} \right| \Delta I + \left| \frac{\partial \Epsilon_x}{\partial R_1} \right| \Delta R_1 + \left| \frac{\partial \Epsilon_x}{\partial R_2} \right| \Delta R_2 + \left| \frac{\partial \Epsilon_x}{\partial \Epsilon} \right| \Delta \Epsilon
 \]
 \begin{multline*}
 	\Delta \Epsilon_x = \left| - \frac{r(R_1 + R_2) + R_1 R_2}{R_1 + R_2} \right| \Delta I + \left| \frac{R_2 (\Epsilon - I_3 R_1)}{(R_1 + R_2)^2} \right| \Delta R_1 + \\+\left| \frac{R_1(R_1 + R_2 - \Epsilon + I_3 R_2)}{(R_1 + R_2)^2} \right| \Delta R_2 + \left| \frac{R_1}{R_1 + R_2} \right| \Delta \Epsilon

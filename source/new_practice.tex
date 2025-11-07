@@ -1,0 +1,99 @@
+\section{Практическая часть}
+С помощью вольтметра измеряем ЭДС батарейки $\Epsilon_x$. Получаем 
+\[\Epsilon_x = 1,461 \text{ В}\]
+
+Собираем схему \cref{fig:3}. Подключаем эталонное 
+\[\Epsilon_N = (1,018 \pm 0,005) \text{ В}\]
+
+Найдем примерное значения $R_1$ и $R_2$ по формуле \cref{eq:9} для $\Epsilon = 3 \text{ В}$ и $\Epsilon = 6 \text{ В}$.
+
+Результаты запишем в \cref{tab:1b}:
+\begin{table}[h!]
+	\centering
+	\caption{Результаты измерений компенсирующих сопротивлений}
+	\label{tab:1}
+	
+	\begin{minipage}{0.45\textwidth}
+		\centering
+		\subcaption{Экспериментальные данные}
+		\label{tab:1a}
+		\begin{tabular}{ccc}
+			\toprule
+			$\mathcal{E}$, В & $3$ & $6$ \\
+			\midrule
+			$R_{1N_{\text{ср}}}$, Ом & 3\,781,0 & 1\,880,0 \\
+			$R_{1x_{\text{ср}}}$, Ом & 5\,425,0 & 2\,707,5 \\
+			\bottomrule
+		\end{tabular}
+	\end{minipage}
+	\hfill
+	\begin{minipage}{0.45\textwidth}
+		\centering
+		\subcaption{Теоретические данные}
+		\label{tab:1b}
+		\begin{tabular}{ccc}
+			\toprule
+			$\mathcal{E}$, В & $3$ & $6$ \\
+			\midrule
+			$R_{1N}$, Ом & 3\,770 & 1\,885 \\
+			$R_{1x}$, Ом & 5\,411 & 2\,706 \\
+			\bottomrule
+		\end{tabular}
+	\end{minipage}
+\end{table}
+
+Устанавливаем $\Epsilon$ источника питания, замыкаем цепи, после подборки $R_1$ и $R_2$ и уменьшаем $R_3$ добиваясь показания нуль гальванометра в $(1,0 \pm 0,5) \text{ мкА}$ и $(-1,0 \pm 0,5) \text{ мкА}$.
+
+Это означает, что при 
+\[R_{1N} = \frac{R_{1N}^+ + R_{1N}^-}{2}\]
+
+... можно компенсировать. Повторяем измерения для $\Epsilon = 6 \text{ В}$ и для батарейки с $\Epsilon_x$. Полученные данные запишем в \cref{tab:1b}.
+
+\subsection{Вычисление погрешностей}
+\[R = 11111 \text{ Ом}\]
+\[\Delta R = \pm (0,1 + 0,2 \frac{m}{R}) \cdot \frac{11111}{100} \text{ Ом}\]
+\[R_{1N_{3 \text{ В}}} = 3781,9 \pm 11,1 \text{ Ом}\]
+\[R_{1N_{6 \text{ В}}} = 1888,0 \pm 11,1 \text{ Ом}\]
+\[R_{1x_{3 \text{ В}}} = 5425,0 \pm 11,1 \text{ Ом}\]
+\[R_{1x_{6 \text{ В}}} - 2707,5 \pm 11,1 \text{ Ом}\]
+
+Погрешность измерения вольтметра возьмем из документации прибора:
+\[\Delta \Epsilon_{xB} = \pm (0,15 + 0,2 \frac{0,2}{1,461}) \cdot \frac{1,461}{100} \approx 0,18 \text{ В}\]
+\[\Epsilon_{xB} = (1,461 \pm 0,18) \text{ В}\]
+
+Погрешность источника найдем из документации:
+\[\Delta \Epsilon = \pm (0,5\% \Epsilon + 0,1\% \Epsilon_{max}) \text{ В}\] 
+
+Для $\Epsilon = 3 \text{ В}$ максимальное значение равно $\Epsilon_{max} = 99,9 \text{ В}$:
+\[\Delta \Epsilon = \pm (0,5 \cdot 0,01 \cdot 3 + 0,1 \cdot 0,01 \cdot 99,9) \text{ В} = \pm 0,115 \text{ В}\]
+
+Для $\Epsilon = 6 \text{ В}$ максимальное значение равно $\Epsilon_{max} = 99,9 \text{ В}$:
+\[\Delta \Epsilon = \pm (0,5 \cdot 0,01 \cdot 6 + 0,1 \cdot 0,01 \cdot 99,9) \text{ В} = \pm 0,130 \text{ В}\]
+
+Из формулы \cref{eq:8} получим:
+\[\Epsilon_x = \frac{\Epsilon R_1 - I_3 \big(r (R_1 + R_2) + R_1 R_2\big)}{R_1 + R_2}\]
+\[\frac{\partial \Epsilon_x}{\partial I_3} = - \frac{r (R_1 + R_2) + R_1 R_2}{R_1 + R_2}\]
+\[\frac{\partial \Epsilon_x}{\partial R_1} = \frac{(\Epsilon - I_3 r - I_3 R_1)(R_1 + R_2) - (\Epsilon R_1 - I_3 (r (R_1 + R_2) + R_1 R_2)}{(R_1 + R_2)^2}\]
+\[\frac{\partial \Epsilon_x}{\partial R_2} = \frac{R_1(R_1 + R_2 - \Epsilon + I_3 R_2)}{(R_1 + R_2)^2}\]
+\[\frac{\partial \Epsilon_x}{\partial \Epsilon} = \frac{R_1}{R_1 + R_2}\]
+\[\Delta \Epsilon_x = - \frac{r(R_1 + R_2) + R_1 R_2}{R_1 + R_2} \Delta I + \frac{R_2 (\Epsilon - I_3 R_1)}{(R_1 + R_2)^2} \Delta R_1 + \frac{R_1(R_1 + R_2 - \Epsilon + I_3 R_2)}{(R_1 + R_2)^2} \Delta R_2 + \frac{R_1}{R_1 + R_2} \Delta \Epsilon\]
+
+\[\Delta \Epsilon_{x_1} \approx 0,005 \text{ В}\]
+\[\Delta \Epsilon_{x_2} \approx 0,003 \text{ В}\]
+
+Вычислим $\Epsilon_x$ по формуле \cref{eq:10}:
+\begin{table}[H]
+	\centering
+	\caption{Теоретические данные}
+	\label{tab:2}
+	\begin{tabular}{lccc}
+		\toprule
+		& $\mathcal{E}$, В & $3$ & $6$ \\
+		\midrule
+		Метод компенсации & $\Epsilon_{x B}, \text{ В}$ & $1,461 \pm 0,005$  & $1,460 \pm 0,003$ \\
+		Вольтметр & $\Epsilon_{x B}, \text{ В}$ & $1,461 \pm 0,18$ & $1,461 \pm 0,18$ \\
+		\bottomrule
+	\end{tabular}
+\end{table}
+
+Метод компенсации показывает меньшую поношенность, чем прямое измерение. 

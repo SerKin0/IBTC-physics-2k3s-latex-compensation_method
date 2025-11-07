@@ -19,14 +19,14 @@
 # print(temp.indetect_error.latex())
 
 r = 0
-R_1 = 5425
+R_1 = 2707.5
 R_2 = 11111 - R_1
 Delta_I = 0.5*0.001
-Delta_R_1 = 5
+Delta_R_1 = 2.7
 Delta_R_2 = 5
 I_3 = 0
-E = 3
-Delta_E = 0.115
+E = 6
+Delta_E = 0.130
 
 Delta_E_x = - (r * (R_1 + R_2) + R_1 * R_2) / (R_1 + R_2) * Delta_I + (R_2 * (E - I_3 * R_2)) / (R_1 + R_2)**2 * Delta_R_1 + (R_1 * (R_1 + R_2 - E + I_3 * R_2)) / (R_1 + R_2)**2 * Delta_R_2 + (R_1) / (R_1 + R_2) * Delta_E
 print(Delta_E_x)
